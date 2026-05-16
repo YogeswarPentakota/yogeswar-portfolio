@@ -62,3 +62,12 @@ gsap.utils.toArray('.works-header, .work-item, .about-top, .about-col, .about-im
   });
 });
 
+// ── STYLE CARDS — restart sweep on every hover ──
+document.querySelectorAll('.style-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    const sweep = card.querySelector('.sweep-line');
+    sweep.style.animation = 'none';
+    sweep.offsetHeight; // force reflow
+    sweep.style.animation = '';
+  });
+});

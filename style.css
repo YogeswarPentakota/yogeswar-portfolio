@@ -11,11 +11,10 @@ html {
 html, body {
   background-color: #0a0a0a;
   color: #f0f0f0;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Syne', sans-serif;
   font-size: 16px;
   overflow-x: hidden;
 }
-
 a {
   color: inherit;
   text-decoration: none;
@@ -36,9 +35,10 @@ nav {
 }
 
 .logo {
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  color: #f0f0f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: rgba(240,240,240,0.85);
+  font-weight: 500;
 }
 
 nav ul {
@@ -48,13 +48,13 @@ nav ul {
 }
 
 nav ul li a {
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #f0f0f0;
+  color: rgba(240,240,240,0.4);
+  font-weight: 400;
   transition: opacity 0.3s ease;
 }
-
 nav ul li a:hover {
   opacity: 0.4;
 }
@@ -71,20 +71,20 @@ nav ul li a:hover {
 
 .hero h1 {
   font-size: clamp(3rem, 10vw, 10rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
   max-width: 90%;
+  text-transform: uppercase;
 }
-
 .hero .subtitle {
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  text-transform: lowercase;
-  opacity: 0.5;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.3;
   margin-top: 1.5rem;
+  font-weight: 400;
 }
-
 /* ── WORKS SECTION ── */
 .works {
   padding: 6rem 3rem;
@@ -99,10 +99,10 @@ nav ul li a:hover {
 }
 
 .works-header h2 {
-  font-size: 0.85rem;
+  font-size: 0.58rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.5;
+  letter-spacing: 0.18em;
+  opacity: 0.28;
   font-weight: 400;
 }
 
@@ -160,9 +160,10 @@ nav ul li a:hover {
 }
 
 .work-text h3 {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 .work-text p {
@@ -210,10 +211,10 @@ nav ul li a:hover {
 }
 
 .about-top h2 {
-  font-size: 0.85rem;
+  font-size: 0.58rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.5;
+  letter-spacing: 0.18em;
+  opacity: 0.28;
   font-weight: 400;
   margin-bottom: 4rem;
 }
@@ -266,10 +267,11 @@ footer {
 
 .footer-cta {
   display: block;
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
   line-height: 1;
+  text-transform: uppercase;
   margin-bottom: 4rem;
   transition: opacity 0.3s ease;
 }
@@ -351,119 +353,154 @@ a:hover ~ .cursor-follower,
   border-top: 1px solid rgba(240,240,240,0.1);
 }
 
-.skills-header h2 {
+.skills-header h2,
+.style-label h2 {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   opacity: 0.5;
   font-weight: 400;
-  margin-bottom: 4rem;
+  margin-bottom: 0;
 }
 
-.skills-cinematic {
+.style-label {
+  margin: 4rem 0 1.5rem;
+}
+
+/* ── SKILL BLOCKS ── */
+.skill-block {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-
-.skill-row-double {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.skill-row-triple {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
-
-/* ── SKILL CARD ── */
-.skill-card {
+  align-items: center;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(240,240,240,0.08);
+  gap: 2.5rem;
   position: relative;
-  border: 0.5px solid rgba(240,240,240,0.08);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: visible;
-  transition: border-color 0.4s ease, background 0.4s ease;
-  cursor: default;
+  transition: padding 0.4s ease, background 0.4s ease;
 }
 
-.skill-card--full  { min-height: 160px; }
-.skill-card--half  { min-height: 130px; }
-.skill-card--third { min-height: 110px; }
-
-.skill-card:hover {
-  border-color: rgba(240,240,240,0.22);
-  background: rgba(240,240,240,0.02);
+.skill-block:last-of-type {
+  border-bottom: 1px solid rgba(240,240,240,0.08);
 }
 
-.skill-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
+.skill-block--left {
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
-.skill-name {
-  font-size: clamp(1rem, 2.5vw, 2rem);
-  font-weight: 400;
+.skill-block--right {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.skill-block--right .skill-text--right {
+  margin-left: 0;
+}
+
+.skill-block:hover {
+  background: rgba(240,240,240,0.015);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* skill text */
+.skill-text {
+  min-width: 260px;
+  flex-shrink: 0;
+}
+
+.skill-text--right {
+  text-align: right;
+}
+
+.skill-title {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 500;
   letter-spacing: -0.02em;
-  color: rgba(240,240,240,0.5);
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.45);
+  margin: 0 0 0.5rem;
+  transition: color 0.4s ease, font-size 0.4s ease;
+}
+
+.skill-block:hover .skill-title {
+  color: rgba(240,240,240,0.95);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+}
+
+.skill-one-liner {
+  font-size: 0.78rem;
+  color: rgba(240,240,240,0.2);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  margin: 0;
   transition: color 0.4s ease;
 }
 
-.skill-card:hover .skill-name {
-  color: rgba(240,240,240,0.95);
+.skill-block:hover .skill-one-liner {
+  color: rgba(240,240,240,0.45);
 }
 
 .skill-num {
   font-size: 0.65rem;
-  color: rgba(240,240,240,0.15);
+  color: rgba(240,240,240,0.12);
   letter-spacing: 0.1em;
+  flex-shrink: 0;
   transition: color 0.4s ease;
 }
 
-.skill-card:hover .skill-num {
-  color: rgba(240,240,240,0.3);
+.skill-block:hover .skill-num {
+  color: rgba(240,240,240,0.25);
 }
 
-.skill-desc {
-  font-size: 0.78rem;
-  color: rgba(240,240,240,0.2);
-  line-height: 1.7;
-  letter-spacing: 0.03em;
-  transition: color 0.4s ease;
+/* ── SKILL PHOTOS ── */
+.skill-photos {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex: 1;
 }
 
-.skill-card:hover .skill-desc {
-  color: rgba(240,240,240,0.5);
+.skill-block--right .skill-photos {
+  justify-content: flex-end;
 }
 
-/* ── STACKED IMAGE HOVER ── */
-.skill-images {
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 160px;
-  height: 110px;
-  pointer-events: none;
-  z-index: 10;
+.skill-block--left .skill-photos {
+  justify-content: flex-start;
 }
-
-.skill-img {
-  position: absolute;
-  border-radius: 3px;
+.skill-photo {
+  border-radius: 2px;
   overflow: hidden;
   border: 0.5px solid rgba(240,240,240,0.15);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s ease calc(var(--i) * 0.1s),
+    transform 0.4s ease calc(var(--i) * 0.1s);
+  flex-shrink: 0;
 }
 
-.skill-img img {
+.skill-block:hover .skill-photo {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* cinematic 21:9 ratio — Cinematography */
+.skill-photos--cine .skill-photo {
+  width: 155px;
+  height: 66px;
+}
+
+/* 4:3 ratio — Video Editing & Photography */
+.skill-photos--43 .skill-photo {
+  width: 95px;
+  height: 71px;
+}
+.skill-block:hover .skill-photo {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -471,53 +508,120 @@ a:hover ~ .cursor-follower,
   display: block;
 }
 
-/* back image */
-.skill-img--back {
-  width: 120px;
-  height: 80px;
-  top: 5px;
-  right: 20px;
-  opacity: 0;
-  transform: rotate(5deg) translateX(16px) scale(0.9);
+/* ── STYLES GRID ── */
+.styles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 0.5px solid rgba(240,240,240,0.08);
+  margin-bottom: 3rem;
+  overflow: hidden;
 }
 
-/* mid image */
-.skill-img--mid {
-  width: 140px;
-  height: 92px;
-  top: 8px;
-  right: 10px;
-  opacity: 0;
-  transform: rotate(-2.5deg) translateX(8px) scale(0.93);
+.style-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  min-height: 200px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  cursor: default;
+  border-right: 0.5px solid rgba(240,240,240,0.08);
+  transition: background 0.5s ease;
 }
 
-/* front image */
-.skill-img--front {
-  width: 160px;
-  height: 108px;
-  top: 0;
+.style-card:last-child {
+  border-right: none;
+}
+
+.style-card:hover {
+  background: rgba(240,240,240,0.02);
+}
+
+/* scanlines texture */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(240,240,240,0.013) 3px,
+    rgba(240,240,240,0.013) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* sweep line */
+.sweep-line {
+  position: absolute;
+  left: 0;
   right: 0;
-  opacity: 0;
-  transform: rotate(0deg) translateX(10px) scale(0.95);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(240,240,240,0.15) 20%,
+    rgba(240,240,240,0.5) 50%,
+    rgba(240,240,240,0.15) 80%,
+    transparent 100%
+  );
+  top: 110%;
+  transition: top 0s;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* reveal on hover */
-.skill-card:hover .skill-img--back {
-  opacity: 0.35;
-  transform: rotate(5deg) translateX(0) scale(0.9);
-  transition-delay: 0s;
+.style-card:hover .sweep-line {
+  animation: sweep 0.6s ease forwards;
 }
 
-.skill-card:hover .skill-img--mid {
-  opacity: 0.6;
-  transform: rotate(-2.5deg) translateX(0) scale(0.95);
-  transition-delay: 0.05s;
+@keyframes sweep {
+  0%   { top: -5%; }
+  100% { top: 110%; }
 }
 
-.skill-card:hover .skill-img--front {
-  opacity: 1;
-  transform: rotate(0deg) translateX(0) scale(1);
-  transition-delay: 0.1s;
+/* style content */
+.style-content {
+  position: relative;
+  z-index: 2;
+}
+
+.style-title {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: rgba(240,240,240,0.4);
+  margin: 0 0 0;
+  transition: color 0.4s ease;
+}
+
+.style-card:hover .style-title {
+  color: rgba(240,240,240,0.95);
+}
+
+.style-desc {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease 0.2s;
+}
+
+.style-card:hover .style-desc {
+  max-height: 100px;
+}
+
+.style-desc p {
+  font-size: 0.78rem;
+  color: rgba(240,240,240,0.4);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding-top: 0.8rem;
+}
+
+.style-desc p:first-child {
+  padding-top: 1rem;
 }
 
 /* ── TOOLS ── */
