@@ -37,63 +37,112 @@ document.querySelectorAll('a').forEach(link => {
 
 window.addEventListener('load', () => {
 
-  // lock scroll during animation
+  const isMobile = window.innerWidth <= 768;
   document.body.classList.add('is-animating');
 
-  // calculate how far up the title needs to travel
-  // to reach vertical center of the left panel
-  const leftH  = heroLeft.getBoundingClientRect().height;
-  const titleH = heroTitleGroup.getBoundingClientRect().height;
+  if (isMobile) {
 
-  // distance from bottom-aligned position to center
-  // subtract nav height so title aligns with video center
-  const navH   = mainNav.getBoundingClientRect().height;
-  const centerOffset = -((leftH / 2) - (titleH / 2) - (navH / 2));
-  
-  // build the main timeline
-  const tl = gsap.timeline({
-    onComplete: () => {
-      // unlock scroll after animation finishes
-      document.body.classList.remove('is-animating');
+    // ── MOBILE ANIMATION ──
+    const mobileSep = document.getElementById('mobileSep');
 
-      // enable scroll trigger for sections below
-      initScrollAnimations();
-    }
-  });
+    // phase 1 — title fades up at dead center
+    // hero is already flex column centered
+    // title group starts at opacity 0, translateY 0
+    const mobileTl = gsap.timeline({
+      onComplete: () => {
+        document.body.classList.remove('is-animating');
+        initScrollAnimations();
+      }
+    });
 
-  // ── PHASE 1 — title fades up at bottom left ──
-  // starts from CSS initial state: opacity 0, translateY 60px
-  tl.to(heroTitleGroup, {
-    opacity: 1,
-    y: 0,
-    duration: 1.2,
-    ease: 'power3.out'
-  }, 0.4); // starts 0.4s after timeline begins
+    // title fades up into center
+    mobileTl.to(heroTitleGroup, {
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out'
+    }, 0.4);
 
-  // ── PHASE 2 — title floats upward to vertical center ──
-  // begins while phase 1 is still settling
-  tl.to(heroTitleGroup, {
-    y: centerOffset,
-    duration: 2,
-    ease: 'power2.inOut'
-  }, 1.4); // starts 1.4s in — overlaps with phase 1 end
+    // phase 2 — title moves up, video moves down from center
+    // move title UP by shifting it upward
+    mobileTl.to(heroTitleGroup, {
+      y: -20,
+      duration: 1,
+      ease: 'power2.inOut'
+    }, 1.6);
 
-  // ── PHASE 3 — video fades in while title is still rising ──
-  tl.to(heroRight, {
-    opacity: 1,
-    duration: 1.4,
-    ease: 'power2.inOut',
-    onStart: () => {
-      heroVideo.play();
-    }
-  }, 2); // starts 2s in — synchronized with title movement
+    // separator fades in
+    mobileTl.to(mobileSep, {
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, 1.8);
 
-  // ── PHASE 4 — nav fades in after composition settles ──
-  tl.to(mainNav, {
-    opacity: 1,
-    duration: 0.8,
-    ease: 'power2.out'
-  }, 3.8); // starts after everything has settled
+    // video fades in moving down from center
+    mobileTl.fromTo(heroRight, {
+      opacity: 0,
+      y: -20
+    }, {
+      opacity: 1,
+      y: 20,
+      duration: 1,
+      ease: 'power2.inOut',
+      onStart: () => {
+        heroVideo.play().catch(() => {});
+      }
+    }, 1.6);
+
+    // phase 3 — nav fades in
+    mobileTl.to(mainNav, {
+      opacity: 1,
+      duration: 0.7,
+      ease: 'power2.out'
+    }, 2.8);
+
+  } else {
+
+    // ── DESKTOP ANIMATION — unchanged ──
+    const leftH  = heroLeft.getBoundingClientRect().height;
+    const titleH = heroTitleGroup.getBoundingClientRect().height;
+    const navH   = mainNav.getBoundingClientRect().height;
+    const centerOffset = -((leftH / 2) - (titleH / 2) - (navH / 2));
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        document.body.classList.remove('is-animating');
+        initScrollAnimations();
+      }
+    });
+
+    tl.to(heroTitleGroup, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power3.out'
+    }, 0.4);
+
+    tl.to(heroTitleGroup, {
+      y: centerOffset,
+      duration: 2,
+      ease: 'power2.inOut'
+    }, 1.4);
+
+    tl.to(heroRight, {
+  opacity: 1,
+  duration: 1.4,
+  onStart: () => {
+    console.log("Animation reached: Playing video now!"); // This will show in your browser 'Inspect' tool
+    const video = document.getElementById('heroVideo');
+    video.play();
+  }
+}, 2);
+
+    tl.to(mainNav, {
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 3.8);
+
+  }
 
 });
 

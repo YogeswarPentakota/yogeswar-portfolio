@@ -98,26 +98,130 @@ body.is-animating {
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-  .hero {
+
+  /* nav — hidden initially, fades in after animation */
+  #mainNav {
+    padding: 1rem 1.5rem;
     flex-direction: column;
-    height: auto;
-    min-height: 100vh;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: #0a0a0a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
   }
+
+  #mainNav ul {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* hero — full viewport fixed */
+  .hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  /* left — no longer a flex half, just wraps title */
   .hero-left {
     width: 100%;
     height: auto;
-    padding: 6rem 2rem 3rem;
+    display: block;
+    padding: 0 2rem;
     border-right: none;
-    border-bottom: 0.5px solid rgba(240,240,240,0.07);
+    border-bottom: none;
+    overflow: visible;
+    flex: none;
   }
+
+  /* title group — starts at center, no transform from GSAP desktop */
+  .hero-title-group {
+    opacity: 0;
+    transform: translateY(0px);
+  }
+
+  .hero-name {
+    font-size: clamp(2.2rem, 11vw, 3.5rem);
+  }
+
+  /* thin separator between title and video */
+  .mobile-sep {
+    width: calc(100% - 4rem);
+    height: 0.5px;
+    background: rgba(240,240,240,0.07);
+    margin: 0.6rem 2rem;
+    opacity: 0;
+  }
+
+  /* right — no longer a flex half, just wraps video */
   .hero-right {
     width: 100%;
     height: auto;
-    padding: 3rem 2rem;
+    padding: 0 2rem;
+    display: block;
+    flex: none;
+    opacity: 0;
   }
+
   .hero-video-frame {
     width: 100%;
+    aspect-ratio: 2.39 / 1;
   }
+
+  /* sections below */
+  .works {
+    margin-top: 100vh;
+    padding: 4rem 1.5rem;
+  }
+
+  .about {
+    padding: 4rem 1.5rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .skills {
+    padding: 4rem 1.5rem;
+  }
+
+  .skill-block--left,
+  .skill-block--right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .skill-photos {
+    display: none;
+  }
+
+  .styles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
 }
 /* ── RESET & BASE ── */
 html {
@@ -307,6 +411,11 @@ nav ul li a:hover {
 .about {
   padding: 6rem 3rem;
   border-top: 1px solid rgba(240,240,240,0.1);
+  
+  /* ADD THESE TWO LINES HERE AS WELL */
+  background-color: #0a0a0a;
+  position: relative;
+  z-index: 10;
 }
 
 .about-top h2 {
@@ -316,19 +425,6 @@ nav ul li a:hover {
   opacity: 0.28;
   font-weight: 400;
   margin-bottom: 4rem;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin-bottom: 5rem;
-}
-
-.about-col {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .about-label {
@@ -344,9 +440,21 @@ nav ul li a:hover {
   opacity: 0.8;
 }
 
+/* The main wrapper that holds both sides */
+.about-container {
+  display: flex;
+  gap: 5rem;           /* Space between image and text */
+  align-items: flex-start;
+}
+
+/* Left side (Image) */
+.about-left {
+  flex: 1;             /* Takes up 50% of the space */
+}
+
 .about-image {
   width: 100%;
-  max-height: 600px;
+  aspect-ratio: 3 / 4; /* This creates the Portrait (4:3) look */
   overflow: hidden;
   border-radius: 4px;
 }
@@ -354,8 +462,30 @@ nav ul li a:hover {
 .about-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: cover;   /* Ensures the photo fills the 3:4 box without stretching */
+}
+
+/* Right side (Text) */
+.about-right {
+  flex: 1;             /* Takes up the other 50% */
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;         /* Space between the text blocks */
+}
+
+.about-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.about-right p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.8;
 }
 
 /* ── FOOTER ── */
@@ -441,6 +571,11 @@ footer {
 .skills {
   padding: 6rem 3rem;
   border-top: 1px solid rgba(240,240,240,0.1);
+  
+  /* ADD THESE TWO LINES BELOW */
+  background-color: #0a0a0a; /* This gives it a solid black color so you can't see through it */
+  position: relative;        /* This allows the z-index to work */
+  z-index: 10;               /* This pulls the section to the "front" layer */
 }
 
 .skills-header h2,
